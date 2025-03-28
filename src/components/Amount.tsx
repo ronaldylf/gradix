@@ -12,7 +12,7 @@ interface IAmount {
 
 function Amount() {
     const tableContext = React.useContext(TimeTableContext)
-    const [timeTable, setTimeTable] = tableContext.timeTable;
+    const [timeTable, _] = tableContext.timeTable;
     const [amounts, setAmounts] = useState<IAmount>({amountRequired: 0, amountTotal: 0})
 
     useEffect(() => {
