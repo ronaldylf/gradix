@@ -5,8 +5,6 @@ import Introduction from './Introduction'
 import Amount from './Amount'
 import VerticalLine from './ui/vertical-line'
 import ClearTable from './ClearTable'
-import { Button } from './ui/button'
-import { Github, Mail } from 'lucide-react'
 import Menu from './Menu'
 
 function App() {
