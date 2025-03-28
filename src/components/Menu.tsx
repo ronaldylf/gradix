@@ -85,7 +85,7 @@ function Menu () {
                             {/* fala um pouco sobre o criador + foto */}
                             <div className="flex flex-col gap-2 w-sm">
                                 <div className="flex gap-2 place-items-baseline">
-                                    <Avatar className="w-16 h-16"><AvatarImage src="src/assets/ronaldy.jpeg"/></Avatar>
+                                    <Avatar className="w-16 h-16"><AvatarImage src="ronaldy.jpeg"/></Avatar>
                                     <h1 className="underline underline-offset-8">Ronaldy Lima</h1>
                                 </div>
                                 <div> Transformo café em código, e código em soluções que facilitam o dia a dia. Se essa ferramenta lhe ajudou, pode me pagar um cafézinho :-) </div>
