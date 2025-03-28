@@ -7,7 +7,7 @@ import { toast } from "sonner";
 
 function ClearTable() {
     const tableContext = React.useContext(TimeTableContext)
-    const [timeTable, setTimeTable] = tableContext.timeTable;
+    const [_, setTimeTable] = tableContext.timeTable;
 
     return (
         // add a tooltip later
