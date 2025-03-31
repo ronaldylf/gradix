@@ -124,9 +124,9 @@ function MainTable() {
 
                 <TableHeader>
                     {mainTable.getHeaderGroups().map(headerGroup => (
-                        <TableRow key={headerGroup.id}>
+                        <TableRow className="bg-accent/50 hover:bg-accent/50" key={headerGroup.id}>
                             {headerGroup.headers.map(header => (
-                                <TableHead key={ header.id } className="text-center w-[100px]">
+                                <TableHead key={ header.id } className="text-center text-primary w-[100px]">
                                     { String(header.column.columnDef.header) }
                                 </TableHead>
                             ))}
