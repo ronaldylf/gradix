@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+    id String @id @default(uuid())
+    name String
+    email String @unique
+    password String
+    tables Table[]
+}
+
+model Table {
+    id String @id @default(uuid())
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId String
+    caption String
+    chairs Chair[]
+    createdAt DateTime @default(now())
+}
+
+model Chair {
+    id String @id @default(uuid())
+    table Table @relation(fields: [tableId], references: [id], onDelete: Cascade)
+    tableId String
+    label String
+    nameCode String?
+    timeCode String
+    isRequired Boolean
+}
