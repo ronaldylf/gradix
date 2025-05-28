@@ -3,7 +3,7 @@
 import { validateTimeCode } from '../utils/ValidateChairCode'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
-import { CirclePlus } from 'lucide-react'
+import { CirclePlus, CirclePlusIcon } from 'lucide-react'
 import { Switch } from './ui/switch'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
@@ -25,7 +25,7 @@ import { IChair } from '@/interfaces/IChair'
 
 const addChairSchema = z
     .object({
-        timeCode: z.string().nonempty().min(3).max(6),
+        timeCode: z.string().nonempty().min(3).max(10),
         label: z.string().nonempty().min(2).max(20),
         isRequired: z.boolean(),
     })
@@ -36,12 +36,14 @@ const addChairSchema = z
 
 type TAddChair = z.infer<typeof addChairSchema>
 
-export default function AddChair({
+export default function AddChairForm({
     table,
     tableId,
+    onSuccess,
 }: {
     table: ITimeTable
     tableId: string
+    onSuccess: any
 }) {
     const form = useForm<TAddChair>({
         resolver: zodResolver(addChairSchema),
@@ -71,6 +73,7 @@ export default function AddChair({
                     },
                 }
             )
+            onSuccess(false)
         },
         onError: () => {
             toast('Algo deu errado ao adicionar a cadeira, tente novamente.')
@@ -104,11 +107,9 @@ export default function AddChair({
         <Form {...form}>
             <form
                 onSubmit={form.handleSubmit(handleChairAddition)}
-                className="p-4 border rounded-xl"
+                className="px-4"
             >
                 <div className="flex flex-col gap-3">
-                    <h1 className="text-lg">Adicionar cadeira</h1>
-
                     <FormField
                         control={form.control}
                         name="label"
@@ -138,7 +139,7 @@ export default function AddChair({
                                 <FormControl>
                                     <Input
                                         placeholder="Horário"
-                                        maxLength={7}
+                                        maxLength={10}
                                         {...field}
                                     />
                                 </FormControl>
@@ -167,21 +168,16 @@ export default function AddChair({
                                             </FormControl>
                                             <FormLabel>Optativa</FormLabel>
                                         </div>
-
-                                        <Button
-                                            type="submit"
-                                            size={'lg'}
-                                            className="shadow"
-                                        >
-                                            Adicionar
-                                            <CirclePlus />
-                                        </Button>
                                     </div>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
                     </div>
+                    <Button type="submit" className="shadow">
+                        Adicionar
+                        <CirclePlusIcon />
+                    </Button>
                 </div>
             </form>
         </Form>

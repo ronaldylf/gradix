@@ -1,6 +1,6 @@
 'use client'
 
-import AddChair from '@/components/AddChair'
+import AddChairSheet from '@/components/add-chair-sheet'
 import Amount from '@/components/Amount'
 import ClearTable from '@/components/ClearTable'
 import CloseTable from '@/components/CloseTable'
@@ -105,7 +105,7 @@ export default function Dashboard() {
                     {/* Lado esquerdo */}
                     {tableId ? (
                         <div className="flex flex-col gap-4 font-sans">
-                            <AddChair
+                            <AddChairSheet
                                 table={timeTable}
                                 tableId={queryCurrentTable.data?.id}
                             />
