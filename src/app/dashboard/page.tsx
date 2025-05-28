@@ -6,6 +6,7 @@ import ClearTable from '@/components/ClearTable'
 import CloseTable from '@/components/CloseTable'
 import CreateTableDialog from '@/components/CreateTableDialog'
 import DeleteTable from '@/components/DeleteTable'
+import DownloadTable from '@/components/download-table'
 import MainTable from '@/components/MainTable'
 import Menu from '@/components/Menu'
 import TableSelection from '@/components/TableSelection'
@@ -120,6 +121,7 @@ export default function Dashboard() {
                                     tableId={tableId}
                                     caption={timeTable.caption || ''}
                                 />
+                                <DownloadTable />
                                 <CloseTable />
                             </div>
                             <MainTable
