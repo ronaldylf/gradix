@@ -7,7 +7,7 @@ import {
 
 export default function Informacional() {
     return (
-        <div className="w-md">
+        <div className="h-max">
             <Accordion type="single" collapsible className="w-max">
                 <AccordionItem value="item-1">
                     <AccordionTrigger className="text-xl cursor-pointer">

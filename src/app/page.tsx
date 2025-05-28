@@ -12,7 +12,7 @@ export default function Home() {
     const { data: session } = useSession()
 
     return (
-        <div className="min-h-screen flex gap-10 justify-center p-4 mt-20">
+        <div className="flex gap-10 justify-center p-4 mt-20">
             <Card className="w-full max-w-md shadow-lg rounded-2xl p-6 text-center h-max">
                 <div className="mb-4">
                     <img
