@@ -6,13 +6,14 @@ import { Card } from '@/components/ui/card'
 import Link from 'next/link'
 
 import { signOut, useSession } from 'next-auth/react'
+import Informacional from '@/components/Informacional'
 
 export default function Home() {
     const { data: session } = useSession()
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4">
-            <Card className="w-full max-w-md shadow-lg rounded-2xl p-6 text-center">
+        <div className="min-h-screen flex gap-10 justify-center p-4 mt-20">
+            <Card className="w-full max-w-md shadow-lg rounded-2xl p-6 text-center h-max">
                 <div className="mb-4">
                     <img
                         src="/icon.png"
@@ -26,13 +27,10 @@ export default function Home() {
                 <div>
                     <p className="text-muted-foreground mb-6 text-justify">
                         Ferramenta desenvolvida para auxiliar estudantes
-                        universitários da UFMA a organizarem sua grade de
+                        universitários das UFs a organizarem sua grade de
                         horários durante o período de matrícula das disciplinas,
                         de forma rápida e fácil.
                     </p>
-
-                    {/* adicionar aqui como funcionam os horários                     */}
-                    <Button className="w-full">Informacional</Button>
                 </div>
 
                 <div className="flex flex-col gap-2 w-max self-center">
@@ -72,6 +70,8 @@ export default function Home() {
                     </div>
                 </div>
             </Card>
+            {/* Como funcionam os horários */}
+            <Informacional />
         </div>
     )
 }
