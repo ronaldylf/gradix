@@ -57,7 +57,6 @@ export default function EditTable({
     const queryClient = useQueryClient()
     const editTableMutation = useMutation({
         mutationFn: async ({ newData }: any) => {
-            console.log('newData = ', { ...newData })
             return await editTable(tableId, { ...newData })
         },
         onSuccess: () => {

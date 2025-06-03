@@ -76,7 +76,6 @@ export function LoginForm({
         } catch (e) {
             // Unknown error
             setError('Algo deu errado, tente novamente.')
-            console.log(e)
         }
     }
 
