@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
         return Response.json({ ...createdChair })
     } catch (e) {
         if (e instanceof PrismaClientKnownRequestError) {
-            let error = { message: '', status: 400 }
+            let error = { message: 'Erro desconhecido', status: 400 }
             switch (e.code) {
                 case 'P2003':
                     error.message = 'Tabela não encontrada'
