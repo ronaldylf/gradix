@@ -1,6 +1,6 @@
 'use client'
 
-import { House, Settings } from 'lucide-react'
+import { House, Settings, UserIcon } from 'lucide-react'
 import { Button } from './ui/button'
 
 import { useSession } from 'next-auth/react'
@@ -35,8 +35,22 @@ export default function Menu() {
             </div>
 
             {/* right side */}
-            <div>
-                <Button className="flex cursor-pointer">
+            <div className="flex gap-2">
+                <Link href={'/profile'}>
+                    <Button
+                        size={'icon'}
+                        variant={'outline'}
+                        className="cursor-pointer"
+                    >
+                        <UserIcon />
+                    </Button>
+                </Link>
+
+                <Button
+                    size={'icon'}
+                    variant={'outline'}
+                    className="flex cursor-pointer"
+                >
                     <Settings className="cursor-pointer" />
                 </Button>
             </div>
