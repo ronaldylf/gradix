@@ -1,8 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 
 export async function getUserFromDb({ email, password }: any) {
-    console.log(process.env.NEXTAUTH_URL)
-
     const result = await axios
         .get(`${process.env.NEXTAUTH_URL}/api/users`, {
             params: {
