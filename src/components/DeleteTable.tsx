@@ -1,4 +1,4 @@
-import { Trash } from 'lucide-react'
+import { TrashIcon } from 'lucide-react'
 import { Button } from './ui/button'
 import {
     AlertDialog,
@@ -45,7 +45,7 @@ export default function DeleteTable({
             <AlertDialog>
                 <AlertDialogTrigger asChild>
                     <Button variant={'destructive'} className="cursor-pointer">
-                        <Trash />
+                        <TrashIcon />
                     </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
@@ -65,7 +65,7 @@ export default function DeleteTable({
                                 deleteTableMutation.mutate()
                             }}
                         >
-                            Excluir <Trash />
+                            Excluir <TrashIcon />
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

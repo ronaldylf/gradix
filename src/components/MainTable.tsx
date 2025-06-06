@@ -28,7 +28,7 @@ import {
 } from './ui/dialog'
 import { Button } from './ui/button'
 import { Label } from './ui/label'
-import { Pencil, Trash } from 'lucide-react'
+import { TrashIcon } from 'lucide-react'
 import { deleteChair, editChair } from '@/requests/chairs'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Checkbox } from './ui/checkbox'
@@ -315,7 +315,7 @@ export default function MainTable({
                                     }}
                                     className="cursor-pointer"
                                 >
-                                    <Trash color="#FF0000" />
+                                    <TrashIcon color="#FF0000" />
                                     Excluir
                                 </Button>
                             </DialogFooter>

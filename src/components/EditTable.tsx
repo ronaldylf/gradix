@@ -12,7 +12,7 @@ import {
     SheetTrigger,
 } from '@/components/ui/sheet'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Pencil } from 'lucide-react'
+import { PencilIcon } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import {
@@ -101,7 +101,7 @@ export default function EditTable({
                     size={'icon'}
                     className="cursor-pointer"
                 >
-                    <Pencil />
+                    <PencilIcon />
                 </Button>
             </SheetTrigger>
             <SheetContent>

@@ -1,6 +1,6 @@
 import { Button } from './ui/button'
 import { usePathname, useRouter } from 'next/navigation'
-import { PanelRightClose } from 'lucide-react'
+import { PanelRightCloseIcon } from 'lucide-react'
 
 export default function CloseTable() {
     const router = useRouter()
@@ -15,7 +15,7 @@ export default function CloseTable() {
                 router.push(pathname)
             }}
         >
-            <PanelRightClose />
+            <PanelRightCloseIcon />
         </Button>
     )
 }

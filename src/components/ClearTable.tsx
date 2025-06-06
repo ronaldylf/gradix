@@ -1,8 +1,7 @@
 'use client'
 
-import { RefreshCcw } from 'lucide-react'
+import { RefreshCcwIcon } from 'lucide-react'
 import { Button } from './ui/button'
-import React from 'react'
 import { toast } from 'sonner'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { clearTable } from '@/requests/tables'
@@ -32,7 +31,7 @@ function ClearTable({ userId, tableId }: { userId: string; tableId: string }) {
                 clearTableMutation.mutate()
             }}
         >
-            <RefreshCcw />
+            <RefreshCcwIcon />
         </Button>
     )
 }

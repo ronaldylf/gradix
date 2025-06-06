@@ -18,7 +18,7 @@ import { getDefaultCaption } from '@/utils/DefaultTable'
 import { generateMatrixFormat } from '@/utils/generateMatrixFormat'
 
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { Plus } from 'lucide-react'
+import { PlusIcon } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useLayoutEffect, useState } from 'react'
@@ -147,7 +147,7 @@ export default function Dashboard() {
                                 }}
                             >
                                 Criar tabela
-                                <Plus />
+                                <PlusIcon />
                             </Button>
                         </div>
 

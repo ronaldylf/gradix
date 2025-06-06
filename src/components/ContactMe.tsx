@@ -1,6 +1,12 @@
 'use client'
 
-import { CircleHelp, Coffee, Github, Handshake, Mail } from 'lucide-react'
+import {
+    CircleHelp,
+    CoffeeIcon,
+    GithubIcon,
+    Handshake,
+    MailIcon,
+} from 'lucide-react'
 import { Button } from './ui/button'
 import { useState } from 'react'
 import {
@@ -54,13 +60,13 @@ export default function ContactMe({
         <div className={cn('flex gap-2', className)}>
             <a type="email" target="_blank" href="mailto:ronaldylf2@gmail.com">
                 <Button variant={button_variant} className="cursor-pointer">
-                    <Mail />
+                    <MailIcon />
                 </Button>
             </a>
 
             <a target="_blank" href="https://github.com/ronaldylf/">
                 <Button variant={button_variant} className="cursor-pointer">
-                    <Github />
+                    <GithubIcon />
                 </Button>
             </a>
 
@@ -70,7 +76,7 @@ export default function ContactMe({
                         variant={button_variant}
                         className="flex gap-2 cursor-pointer"
                     >
-                        <Coffee />
+                        <CoffeeIcon />
                         Me pague um café ;)
                     </Button>
                 </DialogTrigger>
