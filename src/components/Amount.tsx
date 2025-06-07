@@ -2,8 +2,7 @@
 
 import { ITimeSlot } from '@/interfaces/ITimeSlot'
 import { ITimeTable } from '@/interfaces/ITimeTable'
-import { Label } from '@radix-ui/react-label'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface IAmount {
     amountRequired: number
@@ -47,17 +46,13 @@ function Amount({ timeTable }: { timeTable: ITimeTable }) {
 
     return (
         <div className="flex gap-2 text-2xl rounded-sm border-2 p-3 w-full justify-center">
-            <Label className="cursor-text">
-                Optativas: {amounts.amountNotRequired}
-            </Label>
-            <Label className="cursor-text">|</Label>
-            <Label className="cursor-text">
-                Obrigatórias: {amounts.amountRequired}
-            </Label>
-            <Label className="cursor-text">|</Label>
-            <Label className="cursor-text">
+            <div>Optativas: {amounts.amountNotRequired}</div>
+            <div> | </div>
+            <div>Obrigatórias: {amounts.amountRequired}</div>
+            <div> | </div>
+            <div>
                 <b>Total: {amounts.amountTotal}</b>
-            </Label>
+            </div>
         </div>
     )
 }
