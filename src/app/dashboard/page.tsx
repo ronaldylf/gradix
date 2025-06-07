@@ -20,9 +20,10 @@ import { generateMatrixFormat } from '@/utils/generateMatrixFormat'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 export default function Dashboard() {
+    const printTableRef = useRef<any>(null)
     const searchParams = useSearchParams()
 
     const pairs = [...searchParams]
@@ -120,14 +121,20 @@ export default function Dashboard() {
                                     tableId={tableId}
                                     caption={timeTable.caption || ''}
                                 />
-                                <DownloadTable />
+                                <DownloadTable
+                                    printRef={printTableRef}
+                                    fileName={timeTable.caption || ''}
+                                />
                                 <EditTable
                                     tableId={tableId}
                                     currentCaption={timeTable.caption || ''}
                                 />
                                 <CloseTable />
                             </div>
-                            <div className="space-y-2">
+                            <div
+                                ref={printTableRef}
+                                className="space-y-2 bg-background text-foreground"
+                            >
                                 <Amount timeTable={timeTable} />
                                 <MainTable
                                     tableId={tableId}
