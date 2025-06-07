@@ -7,7 +7,6 @@ import { useEffect, useMemo, useState } from 'react'
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
@@ -15,7 +14,7 @@ import {
 } from './ui/table'
 import { Input } from './ui/input'
 import { matrixToObject } from '@/utils/matrixToObject'
-import { getDefaultCaption, getDefaultData } from '@/utils/DefaultTable'
+import { getDefaultData } from '@/utils/DefaultTable'
 import { ITimeTable } from '@/interfaces/ITimeTable'
 import { isDefaultSlot } from '@/utils/DefaultSlot'
 import {
@@ -32,7 +31,6 @@ import { TrashIcon } from 'lucide-react'
 import { deleteChair, editChair } from '@/requests/chairs'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Checkbox } from './ui/checkbox'
-import EditTable from './EditTable'
 
 export default function MainTable({
     tableId,
@@ -176,13 +174,10 @@ export default function MainTable({
 
     return (
         <div>
-            <Table className="text-center caption-top">
-                <TableCaption className="mb-2 mt-0 text-primary text-2xl border rounded-sm p-1">
-                    <div className="flex gap-2 items-center justify-center">
-                        <h1> {timeTable.caption}</h1>
-                    </div>
-                </TableCaption>
-
+            <div className="caption-top border rounded-sm p-1 text-primary text-2xl mt-0 mb-2 justify-center text-center">
+                {timeTable.caption}
+            </div>
+            <Table className="text-center">
                 <TableHeader>
                     {mainTable.getHeaderGroups().map((headerGroup) => (
                         <TableRow
