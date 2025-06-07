@@ -46,7 +46,7 @@ function Amount({ timeTable }: { timeTable: ITimeTable }) {
     }, [timeTable])
 
     return (
-        <div className="flex gap-2 text-2xl rounded-2xl border-2 p-3 px-5 w-max">
+        <div className="flex gap-2 text-2xl rounded-sm border-2 p-3 w-full justify-center">
             <Label className="cursor-text">
                 Optativas: {amounts.amountNotRequired}
             </Label>
@@ -55,7 +55,7 @@ function Amount({ timeTable }: { timeTable: ITimeTable }) {
                 Obrigatórias: {amounts.amountRequired}
             </Label>
             <Label className="cursor-text">|</Label>
-            <Label className="cursor-text underline">
+            <Label className="cursor-text">
                 <b>Total: {amounts.amountTotal}</b>
             </Label>
         </div>

@@ -177,17 +177,9 @@ export default function MainTable({
     return (
         <div>
             <Table className="text-center caption-top">
-                <TableCaption className="mb-3 text-primary text-2xl border rounded-sm p-1">
+                <TableCaption className="mb-2 mt-0 text-primary text-2xl border rounded-sm p-1">
                     <div className="flex gap-2 items-center justify-center">
                         <h1> {timeTable.caption}</h1>
-
-                        {/* Prevents default state value */}
-                        {timeTable.caption === getDefaultCaption() ? null : (
-                            <EditTable
-                                tableId={tableId}
-                                currentCaption={timeTable.caption || ''}
-                            />
-                        )}
                     </div>
                 </TableCaption>
 
