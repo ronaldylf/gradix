@@ -7,10 +7,10 @@ import CloseTable from '@/components/CloseTable'
 import CreateTableDialog from '@/components/CreateTableDialog'
 import DeleteTable from '@/components/DeleteTable'
 import DownloadTable from '@/components/download-table'
+import EditTable from '@/components/EditTable'
 import MainTable from '@/components/MainTable'
 import Menu from '@/components/Menu'
 import TableSelection from '@/components/TableSelection'
-import { Button } from '@/components/ui/button'
 import { ITimeTable } from '@/interfaces/ITimeTable'
 import { getChairs } from '@/requests/chairs'
 import { getTable, getUserTables } from '@/requests/tables'
@@ -18,7 +18,6 @@ import { getDefaultCaption } from '@/utils/DefaultTable'
 import { generateMatrixFormat } from '@/utils/generateMatrixFormat'
 
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { PlusIcon } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useLayoutEffect, useState } from 'react'
@@ -110,8 +109,8 @@ export default function Dashboard() {
                                 table={timeTable}
                                 tableId={queryCurrentTable.data?.id}
                             />
-                            <div className="flex gap-3 items-center">
-                                <Amount timeTable={timeTable} />
+                            {/* Options buttons */}
+                            <div className="flex gap-2 items-center border rounded-sm p-2 w-full justify-center">
                                 <ClearTable
                                     userId={userId || ''}
                                     tableId={tableId}
@@ -122,12 +121,19 @@ export default function Dashboard() {
                                     caption={timeTable.caption || ''}
                                 />
                                 <DownloadTable />
+                                <EditTable
+                                    tableId={tableId}
+                                    currentCaption={timeTable.caption || ''}
+                                />
                                 <CloseTable />
                             </div>
-                            <MainTable
-                                tableId={tableId}
-                                timeTable={timeTable}
-                            />
+                            <div className="space-y-2">
+                                <Amount timeTable={timeTable} />
+                                <MainTable
+                                    tableId={tableId}
+                                    timeTable={timeTable}
+                                />
+                            </div>
                         </div>
                     ) : (
                         <h1>Sem tabela selecionada</h1>
@@ -137,24 +143,11 @@ export default function Dashboard() {
 
                     {/* Lado direito */}
                     <div className="flex flex-col gap-5">
-                        <div>
-                            {/* Criar tabela */}
-                            <Button
-                                variant={'secondary'}
-                                className="cursor-pointer w-full text-md justify-between"
-                                onClick={() => {
-                                    setIsCreatingTable(true)
-                                }}
-                            >
-                                Criar tabela
-                                <PlusIcon />
-                            </Button>
-                        </div>
-
                         {/* Mostrando as tabelas */}
                         <TableSelection
                             tables={queryTables.data}
                             currentTableId={tableId}
+                            setIsCreatingTable={setIsCreatingTable}
                         />
                     </div>
                 </div>
