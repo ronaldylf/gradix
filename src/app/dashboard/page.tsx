@@ -2,14 +2,10 @@
 
 import AddChairSheet from '@/components/add-chair-sheet'
 import Amount from '@/components/Amount'
-import ClearTable from '@/components/ClearTable'
-import CloseTable from '@/components/CloseTable'
 import CreateTableDialog from '@/components/CreateTableDialog'
-import DeleteTable from '@/components/DeleteTable'
-import DownloadTable from '@/components/download-table'
-import EditTable from '@/components/EditTable'
 import MainTable from '@/components/MainTable'
 import Menu from '@/components/Menu'
+import TableOptions from '@/components/table-options'
 import TableSelection from '@/components/TableSelection'
 import { ITimeTable } from '@/interfaces/ITimeTable'
 import { getChairs } from '@/requests/chairs'
@@ -102,7 +98,7 @@ export default function Dashboard() {
             <div className="flex flex-col w-max mx-auto mt-3">
                 <Menu />
 
-                <div className="flex justify-around gap-10">
+                <div className="flex justify-around gap-5">
                     {/* Lado esquerdo */}
                     {tableId ? (
                         <div className="flex flex-col gap-4 font-sans">
@@ -110,27 +106,7 @@ export default function Dashboard() {
                                 table={timeTable}
                                 tableId={queryCurrentTable.data?.id}
                             />
-                            {/* Options buttons */}
-                            <div className="flex gap-2 items-center border rounded-sm p-2 w-full justify-center">
-                                <ClearTable
-                                    userId={userId || ''}
-                                    tableId={tableId}
-                                />
-                                <DeleteTable
-                                    userId={userId || ''}
-                                    tableId={tableId}
-                                    caption={timeTable.caption || ''}
-                                />
-                                <DownloadTable
-                                    printRef={printTableRef}
-                                    fileName={timeTable.caption || ''}
-                                />
-                                <EditTable
-                                    tableId={tableId}
-                                    currentCaption={timeTable.caption || ''}
-                                />
-                                <CloseTable />
-                            </div>
+
                             <div
                                 ref={printTableRef}
                                 className="space-y-2 bg-background text-foreground"
@@ -149,13 +125,23 @@ export default function Dashboard() {
                     <div className="border"></div>
 
                     {/* Lado direito */}
-                    <div className="flex flex-col gap-5">
-                        {/* Mostrando as tabelas */}
-                        <TableSelection
-                            tables={queryTables.data}
-                            currentTableId={tableId}
-                            setIsCreatingTable={setIsCreatingTable}
-                        />
+                    <div className="h-max space-y-2 justify-center">
+                        {tableId ? (
+                            <TableOptions
+                                userId={userId || ''}
+                                tableId={tableId || ''}
+                                timeTable={timeTable}
+                                printRef={printTableRef}
+                            />
+                        ) : null}
+                        <div className="flex flex-col gap-5">
+                            {/* Mostrando as tabelas */}
+                            <TableSelection
+                                tables={queryTables.data}
+                                currentTableId={tableId}
+                                setIsCreatingTable={setIsCreatingTable}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
