@@ -1,5 +1,5 @@
 import { TrashIcon } from 'lucide-react'
-import { Button } from './ui/button'
+import { Button, buttonVariants } from './ui/button'
 import {
     AlertDialog,
     AlertDialogAction,
@@ -44,7 +44,7 @@ export default function DeleteTable({
         <div>
             <AlertDialog>
                 <AlertDialogTrigger asChild>
-                    <Button variant={'destructive'} className="cursor-pointer">
+                    <Button variant={'outline'} className="cursor-pointer">
                         <TrashIcon />
                     </Button>
                 </AlertDialogTrigger>
@@ -64,6 +64,9 @@ export default function DeleteTable({
                             onClick={() => {
                                 deleteTableMutation.mutate()
                             }}
+                            className={buttonVariants({
+                                variant: 'destructive',
+                            })}
                         >
                             Excluir <TrashIcon />
                         </AlertDialogAction>
