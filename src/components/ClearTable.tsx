@@ -26,6 +26,7 @@ function ClearTable({ userId, tableId }: { userId: string; tableId: string }) {
         // add a tooltip later
         <Button
             size={'icon'}
+            variant={'outline'}
             className="cursor-pointer"
             onClick={() => {
                 clearTableMutation.mutate()
