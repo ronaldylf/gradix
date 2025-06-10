@@ -1,35 +1,66 @@
 import { auth } from '@/authentication/auth'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card'
 
-export default async function Profile() {
+export default async function UserProfilePanel() {
     const session = await auth()
-    const user = session?.user
+    const userData = session?.user
+
+    if (!userData) return
 
     return (
-        <div className="mt-5 flex justify-center">
-            <Card className="w-max">
+        <div className="flex justify-center mt-5">
+            <Card className="w-full max-w-lg">
                 <CardHeader>
-                    <CardTitle>Informações pessoais</CardTitle>
+                    <CardTitle>Painel de Usuário</CardTitle>
+                    <CardDescription>
+                        Visualize e gerencie suas informações pessoais.
+                    </CardDescription>
                 </CardHeader>
-                <CardContent>
-                    <div>
-                        <p>
-                            <b>Nome: </b> {user?.name}
-                        </p>
-
-                        <p>
-                            <b>Email:</b> {user?.email}
-                        </p>
-
-                        <div className="flex items-center gap-2">
-                            <b>Senha: </b>
-                            <div className="flex gap-0.5">
-                                <div className="h-[8px] w-[8px] bg-foreground rounded-full"></div>
-                                <div className="h-[8px] w-[8px] bg-foreground rounded-full"></div>
-                                <div className="h-[8px] w-[8px] bg-foreground rounded-full"></div>
-                                <div className="h-[8px] w-[8px] bg-foreground rounded-full"></div>
-                            </div>
+                <CardContent className="space-y-6">
+                    {/* Seção Nome */}
+                    <div className="flex items-center justify-between border-b pb-4">
+                        <div>
+                            <p className="text-sm font-medium text-muted-foreground">
+                                Nome
+                            </p>
+                            <p className="text-lg font-semibold">
+                                {userData.name}
+                            </p>
                         </div>
+                        <Button variant="outline">Editar Nome</Button>
+                    </div>
+
+                    {/* Seção Email */}
+                    <div className="flex items-center justify-between border-b pb-4">
+                        <div>
+                            <p className="text-sm font-medium text-muted-foreground">
+                                Email
+                            </p>
+                            <p className="text-lg font-semibold">
+                                {userData.email}
+                            </p>
+                        </div>
+                        <Button variant="outline">Editar Email</Button>
+                    </div>
+
+                    {/* Seção Senha */}
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <p className="text-sm font-medium text-muted-foreground">
+                                Senha
+                            </p>
+                            <p className="text-lg font-semibold tracking-widest">
+                                ••••••••
+                            </p>
+                        </div>
+                        <Button variant="outline">Editar Senha</Button>
                     </div>
                 </CardContent>
             </Card>
