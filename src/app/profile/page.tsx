@@ -1,4 +1,7 @@
+'use client'
+
 import { auth } from '@/authentication/auth'
+import EditUsername from '@/components/edit-username'
 import { Button } from '@/components/ui/button'
 import {
     Card,
@@ -7,10 +10,11 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card'
+import { useSession } from 'next-auth/react'
 
-export default async function UserProfilePanel() {
-    const session = await auth()
-    const userData = session?.user
+export default function UserProfilePanel() {
+    const session = useSession()
+    const userData = session?.data?.user
 
     if (!userData) return
 
@@ -34,7 +38,7 @@ export default async function UserProfilePanel() {
                                 {userData.name}
                             </p>
                         </div>
-                        <Button variant="outline">Editar Nome</Button>
+                        <EditUsername />
                     </div>
 
                     {/* Seção Email */}

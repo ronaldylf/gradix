@@ -38,9 +38,9 @@ export async function GET(req: NextRequest) {
     try {
         const searchParams = req.nextUrl.searchParams
         const email = searchParams.get('email')
-        const password = searchParams.get('password')
+        const passwordReceived = searchParams.get('password')
 
-        if (!email || !password) {
+        if (!email || !passwordReceived) {
             return Response.json(
                 {
                     error: { message: 'Dados insuficientes para verificar' },
@@ -64,16 +64,20 @@ export async function GET(req: NextRequest) {
         }
 
         // check if passwords are valid
-        const isPasswordValid = await bcrypt.compare(password, user?.password)
+        const isPasswordValid = await bcrypt.compare(
+            passwordReceived,
+            user?.password
+        )
 
         if (!isPasswordValid) {
             return Response.json(
-                { error: { message: 'Senha incorreta' } },
+                { error: { message: 'Dados de acesso incorretos' } },
                 { status: 404 }
             )
         }
 
-        return Response.json({ ...user })
+        const { password, ...returnedUser } = { ...user }
+        return Response.json({ ...returnedUser })
     } catch (error) {
         return Response.json(
             { message: 'Erro ao verificar usuário' },

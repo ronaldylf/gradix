@@ -1,4 +1,4 @@
-import NextAuth, { CredentialsSignin } from 'next-auth'
+import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import { getUserFromDb } from '@/requests/users'
 
@@ -38,9 +38,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             return !!auth
         },
 
+        jwt: async ({ token, user, trigger, session }) => {
+            if (trigger === 'update') {
+                return { ...token, ...session.user }
+            }
+
+            token.id = user?.id ?? token.sub
+            token.name = user?.name ?? token.name
+            token.email = user?.email ?? token.email
+
+            return token
+        },
+
         session: async ({ token, session }) => {
             if (token.sub && session.user) {
                 session.user.id = token.sub
+                session.user.name = token.name
+                session.user.email = token.email || ''
             }
             return session
         },
