@@ -1,6 +1,8 @@
 'use client'
 
 import { auth } from '@/authentication/auth'
+import EditEmail from '@/components/edit-email'
+import EditPassword from '@/components/edit-password'
 import EditUsername from '@/components/edit-username'
 import { Button } from '@/components/ui/button'
 import {
@@ -51,7 +53,7 @@ export default function UserProfilePanel() {
                                 {userData.email}
                             </p>
                         </div>
-                        <Button variant="outline">Editar Email</Button>
+                        <EditEmail />
                     </div>
 
                     {/* Seção Senha */}
@@ -64,7 +66,7 @@ export default function UserProfilePanel() {
                                 ••••••••
                             </p>
                         </div>
-                        <Button variant="outline">Editar Senha</Button>
+                        <EditPassword />
                     </div>
                 </CardContent>
             </Card>

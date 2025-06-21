@@ -1,4 +1,5 @@
 import prisma from '@/app/db/db_client'
+import { saltAndHashPassword } from '@/utils/password'
 import {
     PrismaClientKnownRequestError,
     PrismaClientValidationError,
@@ -13,7 +14,10 @@ export async function PATCH(
 
     const patches: any = await request.json()
 
-    console.log('chegou até aqui no patch')
+    if (patches.password) {
+        const hashedNewPassword = await saltAndHashPassword(patches.password)
+        patches.password = hashedNewPassword
+    }
 
     try {
         const editedUser = await prisma.user.update({
