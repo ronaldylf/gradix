@@ -12,7 +12,7 @@ export default function Home() {
     const { data: session } = useSession()
 
     return (
-        <div className="flex gap-10 justify-center p-4 mt-20">
+        <div className="flex flex-col lg:flex-row gap-10 p-4 mt-20 items-center lg:items-start lg:justify-center">
             <Card className="w-full max-w-md shadow-lg rounded-2xl p-6 text-center h-max">
                 <div className="mb-4">
                     <img
@@ -61,12 +61,14 @@ export default function Home() {
                                 Ir para a grade
                             </Button>
                         </Link>
-                        <Button
-                            className="cursor-pointer"
-                            onClick={() => signOut()}
-                        >
-                            Logout
-                        </Button>
+                        {session?.user ? (
+                            <Button
+                                className="cursor-pointer"
+                                onClick={() => signOut()}
+                            >
+                                Logout
+                            </Button>
+                        ) : null}
                     </div>
                 </div>
             </Card>
