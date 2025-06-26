@@ -6,23 +6,12 @@ import { Button } from './ui/button'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 
-export default function Menu() {
+export default function Menu({ className }: { className: string }) {
     const { data: session } = useSession()
     const user = session?.user
 
     return (
-        <div
-            className="
-        flex
-        place-items-end
-        self-baseline
-        justify-between
-        border-b
-        pb-2
-        w-full
-        my-5
-        "
-        >
+        <div className={className}>
             {/* left side */}
             <div className="flex gap-3 items-center">
                 <Link href="/">

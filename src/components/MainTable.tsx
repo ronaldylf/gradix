@@ -42,6 +42,19 @@ export default function MainTable({
     const [showDeleteDialog, setShowDeleteDialog] = useState(false)
     const [slotSelected, setSlotSelected] = useState<ITimeSlot | null>(null)
 
+    const today = new Date()
+    const currentDay = today.getDay()
+    const initWeekDay = [0, 6].includes(currentDay) ? 2 : currentDay + 1 // monday=2, tuesday=3, ...
+    const [weekDay, setWeekDay] = useState(initWeekDay)
+
+    const weekDays = [
+        { id: 2, name: 'S' },
+        { id: 3, name: 'T' },
+        { id: 4, name: 'Q' },
+        { id: 5, name: 'Q' },
+        { id: 6, name: 'S' },
+    ]
+
     const columns = useMemo(
         () => [
             {
@@ -153,10 +166,8 @@ export default function MainTable({
 
         if (Object.keys(editedData).length === 0) {
             // didnt edit anything
-            // so it's not necessary to send request to api
-
+            // so it's not necessary to send any request
             toast('Não editou nada.')
-
             return
         }
 
@@ -174,10 +185,58 @@ export default function MainTable({
 
     return (
         <div>
-            <div className="caption-top border rounded-sm p-1 text-primary text-2xl mt-0 mb-2 justify-center text-center">
+            <h1 className="caption-top border rounded-sm p-1 text-primary text-2xl mt-0 mb-2 justify-center text-center">
                 {timeTable.caption}
+            </h1>
+
+            <div className="md:hidden">
+                <div className="flex justify-between">
+                    {weekDays.map((day) => (
+                        <Button
+                            variant={'secondary'}
+                            key={day.id}
+                            onClick={() => setWeekDay(day.id)}
+                            className={` flex-1 py-2 text-sm font-medium ${
+                                weekDay === day.id
+                                    ? // ? 'border-b-2 bg-secondary text-foreground'
+                                      'bg-foreground text-accent'
+                                    : ''
+                            }`}
+                        >
+                            {day.name}
+                        </Button>
+                    ))}
+                </div>
+
+                <div className="flex flex-col gap-2 mt-2">
+                    {mainTable.getRowModel().rows.map(
+                        (row) =>
+                            Object.values(row.original).map((slot, idx_col) => {
+                                if (typeof slot !== 'string') {
+                                    if (slot.col + 2 === weekDay) {
+                                        return (
+                                            <Button
+                                                key={row.id}
+                                                variant={'outline'}
+                                                onClick={() => {
+                                                    handleChairClick({
+                                                        ...slot,
+                                                    })
+                                                }}
+                                            >
+                                                <h1>{slot.childChair.label}</h1>
+                                            </Button>
+                                        )
+                                    }
+                                }
+                            })
+
+                        // <h1 key={row.id}>hello world</h1>
+                    )}
+                </div>
             </div>
-            <Table className="text-center">
+
+            <Table className="text-center hidden md:table">
                 <TableHeader>
                     {mainTable.getHeaderGroups().map((headerGroup) => (
                         <TableRow
@@ -227,89 +286,84 @@ export default function MainTable({
                         </TableRow>
                     ))}
                 </TableBody>
+            </Table>
+            <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+                <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                        <DialogTitle className="flex">
+                            Editar cadeira &nbsp;
+                            <p className="underline">
+                                {slotSelected?.childChair.label}
+                            </p>
+                        </DialogTitle>
+                        <DialogDescription>
+                            Essa ação irá editar ou excluir a cadeira da grade.
+                        </DialogDescription>
+                    </DialogHeader>
 
-                <Dialog
-                    open={showDeleteDialog}
-                    onOpenChange={setShowDeleteDialog}
-                >
-                    <DialogContent className="sm:max-w-[425px]">
-                        <DialogHeader>
-                            <DialogTitle className="flex">
-                                Editar cadeira &nbsp;
-                                <p className="underline">
-                                    {slotSelected?.childChair.label}
-                                </p>
-                            </DialogTitle>
-                            <DialogDescription>
-                                Essa ação irá editar ou excluir a cadeira da
-                                grade.
-                            </DialogDescription>
-                        </DialogHeader>
-
-                        <form action={handleEditChair}>
-                            <div className="grid gap-4 py-4">
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label
-                                        htmlFor="editedChairName"
-                                        className="text-right"
-                                    >
-                                        Nome
-                                    </Label>
-                                    <Input
-                                        name="editedChairName"
-                                        id="editedChairName"
-                                        defaultValue={
-                                            slotSelected?.childChair.label
-                                        }
-                                        className="col-span-3"
-                                    />
-                                    {/* Add a edit isRequired */}
-                                </div>
-
-                                <div className="flex items-center space-x-2">
-                                    <Checkbox
-                                        name="isRequired"
-                                        id="isRequired"
-                                        defaultChecked={
-                                            slotSelected?.childChair.isRequired
-                                        }
-                                    />
-                                    <label
-                                        htmlFor="isRequired"
-                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                    >
-                                        Obrigatória
-                                    </label>
-                                </div>
+                    <form action={handleEditChair}>
+                        <div className="grid gap-4 py-4">
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label
+                                    htmlFor="editedChairName"
+                                    className="text-right"
+                                >
+                                    Nome
+                                </Label>
+                                <Input
+                                    name="editedChairName"
+                                    id="editedChairName"
+                                    defaultValue={
+                                        slotSelected?.childChair.label
+                                    }
+                                    className="col-span-3"
+                                />
+                                {/* Add a edit isRequired */}
                             </div>
 
-                            <DialogFooter>
-                                <Button
-                                    type="submit"
-                                    onClick={() => {
-                                        setShowDeleteDialog(false)
-                                    }}
-                                    className="cursor-pointer"
+                            <div className="flex items-center space-x-2">
+                                <Checkbox
+                                    name="isRequired"
+                                    id="isRequired"
+                                    defaultChecked={
+                                        slotSelected?.childChair.isRequired
+                                    }
+                                />
+                                <label
+                                    htmlFor="isRequired"
+                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                                 >
-                                    Salvar
-                                </Button>
+                                    Obrigatória
+                                </label>
+                            </div>
+                        </div>
 
-                                <Button
-                                    variant={'secondary'}
-                                    onClick={() => {
-                                        handleDeleteChair()
-                                        setShowDeleteDialog(false)
-                                    }}
-                                    className="cursor-pointer"
-                                >
-                                    <TrashIcon color="#FF0000" />
-                                    Excluir
-                                </Button>
-                            </DialogFooter>
-                        </form>
-                    </DialogContent>
-                </Dialog>
-            </Table>
+                        <DialogFooter>
+                            <Button
+                                type="submit"
+                                onClick={() => {
+                                    setShowDeleteDialog(false)
+                                }}
+                                className="cursor-pointer"
+                            >
+                                Salvar
+                            </Button>
+
+                            <Button
+                                variant={'secondary'}
+                                onClick={() => {
+                                    handleDeleteChair()
+                                    setShowDeleteDialog(false)
+                                }}
+                                className="cursor-pointer"
+                            >
+                                <TrashIcon color="#FF0000" />
+                                Excluir
+                            </Button>
+                        </DialogFooter>
+                    </form>
+                </DialogContent>
+            </Dialog>
         </div>
     )
 }

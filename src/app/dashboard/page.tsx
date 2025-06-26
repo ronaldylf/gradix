@@ -5,14 +5,13 @@ import Amount from '@/components/Amount'
 import CreateTableDialog from '@/components/CreateTableDialog'
 import MainTable from '@/components/MainTable'
 import Menu from '@/components/Menu'
+import SelectTable from '@/components/select-table'
 import TableOptions from '@/components/table-options'
-import TableSelection from '@/components/TableSelection'
 import { ITimeTable } from '@/interfaces/ITimeTable'
 import { getChairs } from '@/requests/chairs'
 import { getTable, getUserTables } from '@/requests/tables'
 import { getDefaultCaption } from '@/utils/DefaultTable'
 import { generateMatrixFormat } from '@/utils/generateMatrixFormat'
-
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
@@ -95,11 +94,21 @@ export default function Dashboard() {
 
     return (
         <div>
-            <div className="flex flex-col w-max mx-auto mt-3">
-                <Menu />
+            <div className="flex flex-col w-full px-2">
+                <Menu className="flex place-items-end self-baseline justify-between border-b pb-2 w-full my-5" />
 
-                <div className="flex justify-around gap-5">
-                    {/* Lado esquerdo */}
+                <div className="flex flex-col justify-around gap-5">
+                    <SelectTable
+                        tables={queryTables.data}
+                        currentTableId={tableId}
+                    />
+
+                    <CreateTableDialog
+                        open={isCreatingTable}
+                        onOpenChange={setIsCreatingTable}
+                        userId={userId}
+                    />
+
                     {tableId ? (
                         <div className="flex flex-col gap-4 font-sans">
                             <AddChairSheet
@@ -107,11 +116,23 @@ export default function Dashboard() {
                                 tableId={queryCurrentTable.data?.id}
                             />
 
+                            {tableId ? (
+                                <TableOptions
+                                    userId={userId || ''}
+                                    tableId={tableId || ''}
+                                    timeTable={timeTable}
+                                    printRef={printTableRef}
+                                />
+                            ) : null}
+
                             <div
                                 ref={printTableRef}
                                 className="space-y-2 bg-background text-foreground"
                             >
-                                <Amount timeTable={timeTable} />
+                                <Amount
+                                    timeTable={timeTable}
+                                    className="flex gap-2 text-xl rounded-sm border-2 p-3 w-full justify-center"
+                                />
                                 <MainTable
                                     tableId={tableId}
                                     timeTable={timeTable}
@@ -121,35 +142,11 @@ export default function Dashboard() {
                     ) : (
                         <h1>Sem tabela selecionada</h1>
                     )}
-                    {/* Vertical Line */}
-                    <div className="border"></div>
 
-                    {/* Lado direito */}
-                    <div className="h-max space-y-2 justify-center">
-                        {tableId ? (
-                            <TableOptions
-                                userId={userId || ''}
-                                tableId={tableId || ''}
-                                timeTable={timeTable}
-                                printRef={printTableRef}
-                            />
-                        ) : null}
-                        <div className="flex flex-col gap-5">
-                            {/* Mostrando as tabelas */}
-                            <TableSelection
-                                tables={queryTables.data}
-                                currentTableId={tableId}
-                                setIsCreatingTable={setIsCreatingTable}
-                            />
-                        </div>
-                    </div>
+                    {/* Line */}
+                    <div className="border"></div>
                 </div>
             </div>
-            <CreateTableDialog
-                open={isCreatingTable}
-                onOpenChange={setIsCreatingTable}
-                userId={userId}
-            />
         </div>
     )
 }

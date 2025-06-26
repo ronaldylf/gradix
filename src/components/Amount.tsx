@@ -10,7 +10,13 @@ interface IAmount {
     amountNotRequired?: number
 }
 
-function Amount({ timeTable }: { timeTable: ITimeTable }) {
+function Amount({
+    timeTable,
+    className,
+}: {
+    timeTable: ITimeTable
+    className: string
+}) {
     const [amounts, setAmounts] = useState<IAmount>({
         amountRequired: 0,
         amountTotal: 0,
@@ -45,7 +51,7 @@ function Amount({ timeTable }: { timeTable: ITimeTable }) {
     }, [timeTable])
 
     return (
-        <div className="flex gap-2 text-2xl rounded-sm border-2 p-3 w-full justify-center">
+        <div className={className}>
             <div>Optativas: {amounts.amountNotRequired}</div>
             <div> | </div>
             <div>Obrigatórias: {amounts.amountRequired}</div>

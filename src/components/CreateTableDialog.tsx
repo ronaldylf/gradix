@@ -9,23 +9,22 @@ import {
     DialogTitle,
 } from './ui/dialog'
 import { Input } from './ui/input'
-import { Label } from './ui/label'
 import { usePathname, useRouter } from 'next/navigation'
 import { createTable } from '@/requests/tables'
-import { useState } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
     FormMessage,
 } from './ui/form'
 import { toast } from 'sonner'
+import { DialogTrigger } from '@radix-ui/react-dialog'
+import { PlusIcon } from 'lucide-react'
 
 const createTableSchema = z.object({
     caption: z
@@ -80,6 +79,16 @@ export default function CreateTableDialog({ open, onOpenChange, userId }: any) {
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
+            <DialogTrigger asChild>
+                <Button
+                    variant={'secondary'}
+                    className="cursor-pointer w-full text-md justify-between"
+                >
+                    Criar tabela
+                    <PlusIcon />
+                </Button>
+            </DialogTrigger>
+
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
                     <DialogTitle>Criar tabela</DialogTitle>
