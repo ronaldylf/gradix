@@ -31,6 +31,7 @@ import { TrashIcon } from 'lucide-react'
 import { deleteChair, editChair } from '@/requests/chairs'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Checkbox } from './ui/checkbox'
+import { getRowRangeDate } from '@/utils/getRowRangeDate'
 
 export default function MainTable({
     tableId,
@@ -183,6 +184,16 @@ export default function MainTable({
         })
     }
 
+    interface previousRowI {
+        values: Array<string | ITimeSlot>
+        original: any
+    }
+
+    let previousRow: previousRowI = {
+        values: [],
+        original: {},
+    }
+
     return (
         <div>
             <h1 className="caption-top border rounded-sm p-1 text-primary text-2xl mt-0 mb-2 justify-center text-center">
@@ -209,30 +220,65 @@ export default function MainTable({
                 </div>
 
                 <div className="flex flex-col gap-2 mt-2">
-                    {mainTable.getRowModel().rows.map(
-                        (row) =>
-                            Object.values(row.original).map((slot, idx_col) => {
-                                if (typeof slot !== 'string') {
-                                    if (slot.col + 2 === weekDay) {
-                                        return (
-                                            <Button
-                                                key={row.id}
-                                                variant={'outline'}
-                                                onClick={() => {
-                                                    handleChairClick({
-                                                        ...slot,
-                                                    })
-                                                }}
-                                            >
-                                                <h1>{slot.childChair.label}</h1>
-                                            </Button>
-                                        )
-                                    }
-                                }
-                            })
+                    {mainTable.getRowModel().rows.map((row) => {
+                        const values = Object.values(row.original).map(
+                            (slot, idx_col) => {
+                                if (typeof slot === 'string') return
 
-                        // <h1 key={row.id}>hello world</h1>
-                    )}
+                                // M1, T2, N3, ...
+                                if (slot.col + 2 === weekDay) {
+                                    const previousSlot =
+                                        previousRow.values[idx_col]
+                                    if (
+                                        typeof previousSlot !== 'string' &&
+                                        previousSlot.childChair.id !==
+                                            slot.childChair.id
+                                    )
+                                        return
+
+                                    const rangeStart = getRowRangeDate(
+                                        previousRow.original.horario
+                                    )
+
+                                    const rangeEnd = getRowRangeDate(
+                                        row.original.horario
+                                    )
+
+                                    const formattedStart = rangeStart.start
+                                        .toLocaleTimeString('pt-BR')
+                                        .substring(0, 5)
+                                    const formattedEnd = rangeEnd.end
+                                        .toLocaleTimeString('pt-BR')
+                                        .substring(0, 5)
+
+                                    return (
+                                        <Button
+                                            key={row.id}
+                                            variant={'outline'}
+                                            onClick={() => {
+                                                handleChairClick({
+                                                    ...slot,
+                                                })
+                                            }}
+                                            className="p-6"
+                                        >
+                                            <h1>
+                                                {slot.childChair.label}
+                                                <br />
+                                                {formattedStart} -{' '}
+                                                {formattedEnd}
+                                            </h1>
+                                        </Button>
+                                    )
+                                }
+                            }
+                        )
+                        previousRow.original = row.original
+                        previousRow.values = Object.values(row.original).map(
+                            (v) => v
+                        )
+                        return values
+                    })}
                 </div>
             </div>
 
@@ -259,29 +305,42 @@ export default function MainTable({
                     {mainTable.getRowModel().rows.map((row) => (
                         <TableRow key={row.id}>
                             {Object.values(row.original).map(
-                                (slot, idx_col) => (
-                                    <TableCell
-                                        onClick={
-                                            typeof slot !== 'string' &&
-                                            !isDefaultSlot(slot)
-                                                ? () =>
-                                                      handleChairClick({
-                                                          ...slot,
-                                                      })
-                                                : () => {}
-                                        }
-                                        className={`
+                                (slot, idx_col) => {
+                                    const rangeTime = getRowRangeDate(
+                                        row.original.horario
+                                    )
+
+                                    const formattedStart = rangeTime.start
+                                        .toLocaleTimeString('pt-BR')
+                                        .substring(0, 5)
+                                    const formattedEnd = rangeTime.end
+                                        .toLocaleTimeString('pt-BR')
+                                        .substring(0, 5)
+
+                                    return (
+                                        <TableCell
+                                            onClick={
+                                                typeof slot !== 'string' &&
+                                                !isDefaultSlot(slot)
+                                                    ? () =>
+                                                          handleChairClick({
+                                                              ...slot,
+                                                          })
+                                                    : () => {}
+                                            }
+                                            className={`
                                         ${typeof slot !== 'string' && !isDefaultSlot(slot) ? 'hover:bg-red-500/70' : ''}
                                         align-middle
                                         cursor-pointer
                                         `}
-                                        key={idx_col}
-                                    >
-                                        {typeof slot === 'string'
-                                            ? slot
-                                            : slot.childChair.label}
-                                    </TableCell>
-                                )
+                                            key={idx_col}
+                                        >
+                                            {typeof slot === 'string'
+                                                ? `${formattedStart} - ${formattedEnd}`
+                                                : slot.childChair.label}
+                                        </TableCell>
+                                    )
+                                }
                             )}
                         </TableRow>
                     ))}
