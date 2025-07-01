@@ -33,13 +33,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Checkbox } from './ui/checkbox'
 import { getRowRangeDate } from '@/utils/getRowRangeDate'
 
-export default function MainTable({
-    tableId,
-    timeTable,
-}: {
-    tableId: string
-    timeTable: ITimeTable
-}) {
+export default function MainTable({ timeTable }: { timeTable: ITimeTable }) {
     const [showDeleteDialog, setShowDeleteDialog] = useState(false)
     const [slotSelected, setSlotSelected] = useState<ITimeSlot | null>(null)
 
@@ -281,17 +275,23 @@ export default function MainTable({
                 </div>
             </div>
 
-            <Table className="text-center hidden md:table">
+            <Table className="hidden text-center md:table">
                 <TableHeader>
                     {mainTable.getHeaderGroups().map((headerGroup) => (
                         <TableRow
                             className="bg-accent/50 hover:bg-accent/50"
                             key={headerGroup.id}
                         >
-                            {headerGroup.headers.map((header) => (
+                            {headerGroup.headers.map((header, idx_header) => (
                                 <TableHead
                                     key={header.id}
-                                    className="text-center text-primary w-[100px]"
+                                    // className={
+                                    //     'text-center' +
+                                    //     (idx_header == 0
+                                    //         ? ' ' + 'w-3xs'
+                                    //         : '')
+                                    // }
+                                    className="text-center"
                                 >
                                     {String(header.column.columnDef.header)}
                                 </TableHead>

@@ -93,7 +93,7 @@ export default function Dashboard() {
     if (!session) return
 
     return (
-        <div>
+        <div className="md:w-3xl md:flex md:ml-auto md:mr-auto">
             <div className="flex flex-col w-full px-2">
                 <Menu className="flex place-items-end self-baseline justify-between border-b pb-2 w-full my-5 md:px-2" />
 
@@ -127,16 +127,13 @@ export default function Dashboard() {
 
                             <div
                                 ref={printTableRef}
-                                className="space-y-2 bg-background text-foreground"
+                                className="space-y-2 bg-background text-foreground items-center"
                             >
                                 <Amount
                                     timeTable={timeTable}
                                     className="flex gap-2 text-xl rounded-sm border-2 p-3 w-full justify-center"
                                 />
-                                <MainTable
-                                    tableId={tableId}
-                                    timeTable={timeTable}
-                                />
+                                <MainTable timeTable={timeTable} />
                             </div>
                         </div>
                     ) : (
