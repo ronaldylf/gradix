@@ -18,7 +18,7 @@ export default function TableOptions({
     printRef: RefObject<any>
 }) {
     return (
-        <div className="flex items-center border rounded-sm p-2 w-full justify-evenly">
+        <div className="flex items-center border rounded-sm p-2 w-full justify-evenly md:justify-center md:gap-5">
             <ClearTable userId={userId} tableId={tableId} />
             <DeleteTable
                 userId={userId}

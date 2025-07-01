@@ -209,8 +209,7 @@ export default function MainTable({
                             onClick={() => setWeekDay(day.id)}
                             className={` flex-1 py-2 text-sm font-medium ${
                                 weekDay === day.id
-                                    ? // ? 'border-b-2 bg-secondary text-foreground'
-                                      'bg-foreground text-accent'
+                                    ? 'bg-foreground text-accent hover:bg-foreground/90'
                                     : ''
                             }`}
                         >

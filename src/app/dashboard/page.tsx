@@ -95,7 +95,7 @@ export default function Dashboard() {
     return (
         <div>
             <div className="flex flex-col w-full px-2">
-                <Menu className="flex place-items-end self-baseline justify-between border-b pb-2 w-full my-5" />
+                <Menu className="flex place-items-end self-baseline justify-between border-b pb-2 w-full my-5 md:px-2" />
 
                 <div className="flex flex-col justify-around gap-5">
                     <SelectTable

@@ -1,6 +1,6 @@
 'use client'
 
-import { HouseIcon, SettingsIcon, UserIcon } from 'lucide-react'
+import { HouseIcon, UserIcon } from 'lucide-react'
 import { Button } from './ui/button'
 
 import { useSession } from 'next-auth/react'
@@ -35,13 +35,13 @@ export default function Menu({ className }: { className: string }) {
                     </Button>
                 </Link>
 
-                <Button
+                {/* <Button
                     size={'icon'}
                     variant={'outline'}
                     className="flex cursor-pointer"
                 >
                     <SettingsIcon className="cursor-pointer" />
-                </Button>
+                </Button> */}
             </div>
         </div>
     )
