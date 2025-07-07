@@ -4,10 +4,7 @@ import { GithubIcon, MailIcon } from 'lucide-react'
 import { Button } from './ui/button'
 import { cn } from '@/lib/utils'
 
-export default function ContactMe({
-    className,
-    ...props
-}: React.ComponentProps<'div'>) {
+export default function ContactMe({ className }: React.ComponentProps<'div'>) {
     const button_variant:
         | 'link'
         | 'default'

@@ -144,7 +144,7 @@ export default function MainTable({ timeTable }: { timeTable: ITimeTable }) {
             isRequired?: boolean
         }
 
-        let editedData: IEditedData = {
+        const editedData: IEditedData = {
             label: editedChairName,
             isRequired: editedIsRequired,
         }
@@ -183,7 +183,7 @@ export default function MainTable({ timeTable }: { timeTable: ITimeTable }) {
         original: any
     }
 
-    let previousRow: previousRowI = {
+    const previousRow: previousRowI = {
         values: [],
         original: {},
     }
@@ -282,15 +282,9 @@ export default function MainTable({ timeTable }: { timeTable: ITimeTable }) {
                             className="bg-accent/50 hover:bg-accent/50"
                             key={headerGroup.id}
                         >
-                            {headerGroup.headers.map((header, idx_header) => (
+                            {headerGroup.headers.map((header) => (
                                 <TableHead
                                     key={header.id}
-                                    // className={
-                                    //     'text-center' +
-                                    //     (idx_header == 0
-                                    //         ? ' ' + 'w-3xs'
-                                    //         : '')
-                                    // }
                                     className="text-center"
                                 >
                                     {String(header.column.columnDef.header)}

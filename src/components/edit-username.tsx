@@ -75,7 +75,7 @@ export default function EditUsername() {
 
             toast('Nome atualizado com sucesso')
         },
-        onError: (e) => {
+        onError: () => {
             toast('Algo deu errado, tente novamente.')
         },
     })

@@ -29,7 +29,7 @@ export async function PATCH(
         })
         return Response.json({ ...editedUser })
     } catch (e) {
-        let error = { message: 'erro não identificado', status: 400 }
+        const error = { message: 'erro não identificado', status: 400 }
         if (e instanceof PrismaClientKnownRequestError) {
             switch (e.code) {
                 case 'P2025':

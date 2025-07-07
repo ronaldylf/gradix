@@ -1,6 +1,6 @@
 export function getRowRangeDate(t: string) {
-    let start = new Date()
-    let end = new Date()
+    const start = new Date()
+    const end = new Date()
 
     switch (t) {
         // --- Turno Matutino ---

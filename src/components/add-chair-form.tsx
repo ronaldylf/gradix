@@ -3,7 +3,7 @@
 import { validateTimeCode } from '../utils/ValidateChairCode'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
-import { CirclePlus, CirclePlusIcon } from 'lucide-react'
+import { CirclePlusIcon } from 'lucide-react'
 import { Switch } from './ui/switch'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'

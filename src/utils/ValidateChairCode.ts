@@ -50,26 +50,7 @@ export function validateTimeCode({ timeCode }: Chair) {
         return false
     }
 
-    const cols = nums_dias.map((value) => {
-        return Number(value) - 2
-    })
-
-    const rows = nums_horarios.map((value) => {
-        if (turno === 'T') {
-            return Number(value) - 1 + 6
-        }
-        if (turno === 'N') {
-            return Number(value) - 1 + 12
-        }
-        return Number(value) - 1 // turno manhã (M)
-    })
-
     return true
-
-    // return {
-    //     rows,
-    //     cols,
-    // }
 }
 
 export function ValidadeChairCode(

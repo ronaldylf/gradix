@@ -22,7 +22,7 @@ import {
     FormLabel,
     FormMessage,
 } from './ui/form'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { editUser } from '@/requests/users'
 import { useMutation } from '@tanstack/react-query'
@@ -56,7 +56,7 @@ type editPasswordType = z.infer<typeof editPasswordSchema>
 export default function EditEmail() {
     const [openDialog, setOpenDialog] = useState(false)
 
-    const { data: session, update } = useSession()
+    const { data: session } = useSession()
     const userData = session?.user
 
     const form = useForm<editPasswordType>({
@@ -71,7 +71,7 @@ export default function EditEmail() {
         mutationFn: async ({ id, data }: { id: string; data: any }) => {
             return await editUser(id, data)
         },
-        onSuccess: async (data) => {
+        onSuccess: async () => {
             // close dialog
             setOpenDialog(false)
 
@@ -80,7 +80,7 @@ export default function EditEmail() {
 
             toast('Senha atualizada com sucesso')
         },
-        onError: (e) => {
+        onError: () => {
             toast('Algo deu errado, tente novamente.')
         },
     })

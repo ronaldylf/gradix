@@ -18,7 +18,7 @@ export async function GET(
 
         return Response.json({ ...userTable })
     } catch (e) {
-        let error = { message: '', status: 400 }
+        const error = { message: '', status: 400 }
         if (e instanceof PrismaClientKnownRequestError) {
             switch (e.code) {
                 case 'P2025':

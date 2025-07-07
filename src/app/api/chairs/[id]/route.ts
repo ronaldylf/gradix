@@ -18,7 +18,7 @@ export async function DELETE(
         return Response.json({ ...deletedChair })
     } catch (e) {
         if (e instanceof PrismaClientKnownRequestError) {
-            let error = { message: 'Erro desconhecido', status: 400 }
+            const error = { message: 'Erro desconhecido', status: 400 }
             switch (e.code) {
                 case 'P2025':
                     error.message = 'Cadeira não encontrada'

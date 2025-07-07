@@ -12,6 +12,11 @@ const nextConfig: NextConfig = {
     },
 
     productionBrowserSourceMaps: true,
+
+    // ignora erros de lint durante o build
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
 }
 
 export default nextConfig

@@ -18,7 +18,7 @@ export async function DELETE(
         return Response.json({ ...deletedTable })
     } catch (e) {
         if (e instanceof PrismaClientKnownRequestError) {
-            let error = { message: '', status: 400 }
+            const error = { message: '', status: 400 }
             switch (e.code) {
                 case 'P2025':
                     error.message = 'Tabela não encontrada'

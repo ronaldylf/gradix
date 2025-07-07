@@ -23,8 +23,8 @@ function Amount({
     })
 
     useEffect(() => {
-        let alreadyAddedLabels: string[] = []
-        let allFilledSlots: ITimeSlot[] = []
+        const alreadyAddedLabels: string[] = []
+        const allFilledSlots: ITimeSlot[] = []
         timeTable.data.forEach((row) => {
             row.forEach((slot) => {
                 // se não for o slot default e ainda não tiver sido contabilizado
@@ -37,11 +37,13 @@ function Amount({
                 }
             })
         })
-        let requiredFilledSlots: ITimeSlot[] = allFilledSlots.filter((slot) => {
-            return slot.childChair.isRequired === true
-        })
+        const requiredFilledSlots: ITimeSlot[] = allFilledSlots.filter(
+            (slot) => {
+                return slot.childChair.isRequired === true
+            }
+        )
 
-        let newAmounts = {
+        const newAmounts = {
             amountTotal: allFilledSlots.length,
             amountRequired: requiredFilledSlots.length,
             amountNotRequired:
