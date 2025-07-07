@@ -15,9 +15,9 @@ import { generateMatrixFormat } from '@/utils/generateMatrixFormat'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
-export default function Dashboard() {
+function Dashboard() {
     const printTableRef = useRef<any>(null)
     const searchParams = useSearchParams()
 
@@ -145,5 +145,13 @@ export default function Dashboard() {
                 </div>
             </div>
         </div>
+    )
+}
+
+export default function SuspenseDashboard() {
+    return (
+        <Suspense>
+            <Dashboard />
+        </Suspense>
     )
 }
