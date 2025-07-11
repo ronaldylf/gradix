@@ -18,7 +18,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
 import axios, { AxiosError } from 'axios'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 const commonErrorMessages = {
@@ -63,6 +63,8 @@ export default function SignupForm() {
         },
     })
 
+    const router = useRouter()
+
     async function onSubmit(values: TSignup) {
         await axios
             .post('/api/users', {
@@ -70,7 +72,7 @@ export default function SignupForm() {
             })
             .then((res) => {
                 // all worked well
-                redirect('/login')
+                router.replace('/login')
             })
             .catch((reason: AxiosError) => {
                 // const resp: any = reason.response?.data
