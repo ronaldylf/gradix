@@ -12,6 +12,9 @@ export async function getUserFromDb({ email, password }: any) {
             return resp.data
         })
         .catch((reason: AxiosError) => {
+            console.log('ERRO AO CAPTAR USUÁRIO DO BANCO:')
+            console.log(reason)
+
             return null
         })
 
