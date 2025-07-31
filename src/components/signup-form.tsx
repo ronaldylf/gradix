@@ -20,6 +20,8 @@ import { useForm } from 'react-hook-form'
 import axios, { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { useState } from 'react'
+import { Eye, EyeClosed, EyeOff } from 'lucide-react'
 
 const commonErrorMessages = {
     nonEmpty: 'Campo não pode ser vazio',
@@ -64,6 +66,8 @@ export default function SignupForm() {
     })
 
     const router = useRouter()
+
+    const [showPassword, setShowPassword] = useState(false)
 
     async function onSubmit(values: TSignup) {
         await axios
@@ -134,13 +138,29 @@ export default function SignupForm() {
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel className={labelClass}>Senha</FormLabel>
-                            <FormControl>
-                                <Input
-                                    placeholder="Senha"
-                                    className={inputClass}
-                                    {...field}
-                                />
-                            </FormControl>
+                            <div className="flex gap-1">
+                                <FormControl>
+                                    <Input
+                                        placeholder="Senha"
+                                        className={inputClass}
+                                        type={
+                                            showPassword ? 'text' : 'password'
+                                        }
+                                        {...field}
+                                    />
+                                </FormControl>
+
+                                <Button
+                                    className="cursor-pointer"
+                                    size="icon"
+                                    onClick={() => {
+                                        setShowPassword(!showPassword)
+                                    }}
+                                    type="button"
+                                >
+                                    {showPassword ? <Eye /> : <EyeOff />}
+                                </Button>
+                            </div>
                             {/* <FormDescription>
                                 This is your public display name.
                             </FormDescription> */}
