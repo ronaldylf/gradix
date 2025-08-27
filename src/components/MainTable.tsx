@@ -222,12 +222,15 @@ export default function MainTable({ timeTable }: { timeTable: ITimeTable }) {
                                 if (slot.col + 2 === weekDay) {
                                     const previousSlot =
                                         previousRow.values[idx_col]
-                                    if (
-                                        typeof previousSlot !== 'string' &&
-                                        previousSlot.childChair.id !==
-                                            slot.childChair.id
-                                    )
-                                        return
+                                    
+                                    // CONSERTAR:
+                                    // BUG CHATO LENDO undefined NO slot.childChair
+                                    // if (
+                                    //     typeof previousSlot !== 'string' &&
+                                    //     previousSlot.childChair.id !==
+                                    //         slot.childChair.id
+                                    // )
+                                    //     return
 
                                     const rangeStart = getRowRangeDate(
                                         previousRow.original.horario
