@@ -222,17 +222,6 @@ export default function MainTable({ timeTable }: { timeTable: ITimeTable }) {
                                 if (slot.col + 2 === weekDay) {
                                     const previousSlot =
                                         previousRow.values[idx_col]
-<<<<<<< HEAD
-                                    
-                                    // CONSERTAR:
-                                    // BUG CHATO LENDO undefined NO slot.childChair
-                                    // if (
-                                    //     typeof previousSlot !== 'string' &&
-                                    //     previousSlot.childChair.id !==
-                                    //         slot.childChair.id
-                                    // )
-                                    //     return
-=======
                                     if (
                                         previousSlot &&
                                         typeof previousSlot !== 'string' &&
@@ -240,7 +229,6 @@ export default function MainTable({ timeTable }: { timeTable: ITimeTable }) {
                                             slot.childChair.id
                                     )
                                         return
->>>>>>> 21f5456 (fix: fixed problem previousSlot being undefined)
 
                                     const rangeStart = getRowRangeDate(
                                         previousRow.original.horario
